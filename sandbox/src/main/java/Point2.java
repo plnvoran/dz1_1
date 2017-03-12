@@ -3,26 +3,23 @@
  */
 public class Point2 {
 
-    double x1;
-    double y1;
-    double x2;
-    double y2;
+    double x; double y;
 
-    Point2(double x1, double y1, double x2, double y2) {
-       this.x1=x1;
-       this.y1=y1;
-       this.x2=x2;
-       this.y2=y2;
+
+    Point2(double x, double y) {
+       this.x=x;
+       this.y=y;
+
 
 
     }
 
-    public double distance() {
+    public double distance(Point2 P) {
 
         double Lsq;
         double L;
 
-        Lsq = Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2);
+        Lsq = Math.pow(x - P.x, 2) + Math.pow(y - P.y, 2);
         L = Math.sqrt(Lsq);
 
         return L;
