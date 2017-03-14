@@ -1,11 +1,11 @@
-public class Engine2 {
+public class Engine {
 
     public static void main(String[] args) {
 
-        Point2 p1 = new Point2(2,-5);
-        Point2 p2 = new Point2(-4 ,3);
-        Point2 p3 = new Point2(10,20);
-        Point2 p4 = new Point2(30 ,40);
+        Point p1 = new Point(2,-5);
+        Point p2 = new Point(-4 ,3);
+        Point p3 = new Point(10,20);
+        Point p4 = new Point(30 ,40);
 
 
         System.out.println("Расстояние между");

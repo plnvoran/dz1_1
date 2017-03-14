@@ -1,12 +1,12 @@
 /**
  * Created by Denis on 11.03.2017.
  */
-public class Point2 {
+public class Point {
 
     double x; double y;
 
 
-    Point2(double x, double y) {
+    Point(double x, double y) {
        this.x=x;
        this.y=y;
 
@@ -14,7 +14,7 @@ public class Point2 {
 
     }
 
-    public double distance(Point2 P) {
+    public double distance(Point P) {
 
         double Lsq;
         double L;
