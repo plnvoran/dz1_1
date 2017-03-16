@@ -6,8 +6,8 @@ public class Engine {
 
         Point p1 = new Point(2,-5);
         Point p2 = new Point(-4 ,3);
-        Point p3 = new Point(10,20);
-        Point p4 = new Point(30 ,40);
+        Point p3 = new Point(100,10);
+        Point p4 = new Point(50 ,20);
 
 
         System.out.println("Расстояние между");
