@@ -10,10 +10,10 @@ public class CntactCreationTests extends TestBase {
     @Test
     public void testCntactCreation() {
 
-        app.initAddNew();
-        app.fillContactForm(new CantactData("First name", "Last name", "Moscow, Arbat 5", "+ 74991234567", "12345@mail.ru"));
-        app.submitNewConract();
-        app.returnToHomePage();
+        app.getContactHelper().initAddNew();
+        app.getContactHelper().fillContactForm(new CantactData("First name", "Last name", "Moscow, Arbat 5", "+ 74991234567", "12345@mail.ru"));
+        app.getContactHelper().submitNewConract();
+        app.getNavigationHelper().returnToHomePage();
     }
 
 
