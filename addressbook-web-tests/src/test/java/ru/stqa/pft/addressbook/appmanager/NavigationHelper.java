@@ -6,23 +6,22 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 /**
  * Created by Denis on 19.03.2017.
  */
-public class NavigationHelper {
+public class NavigationHelper extends HelperBase{
 
-
-    private FirefoxDriver wd;
 
     public NavigationHelper(FirefoxDriver wd) {
 
-        this.wd = wd;
+       super (wd);
     }
 
     public void returnToHomePage() {
-        wd.findElement(By.linkText("home page")).click();
+        click(By.linkText("home page"));
     }
 
 
     public void gotoGroupPage() {
-        wd.findElement(By.linkText("groups")).click();
+
+        click(By.linkText("groups"));
     }
 
 
