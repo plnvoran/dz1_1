@@ -24,6 +24,7 @@ public class ApplicationManager {
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
         contactHelper = new ContactHelper(wd);
+        wd.get("http://localhost/addressbook/group.php");
         sessionHelper.login("admin", "secret");
     }
 

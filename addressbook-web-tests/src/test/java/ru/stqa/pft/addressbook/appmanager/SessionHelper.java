@@ -6,8 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 /**
  * Created by Denis on 19.03.2017.
  */
-public class SessionHelper extends HelperBase{
-
+public class SessionHelper extends HelperBase {
 
 
     public SessionHelper(FirefoxDriver wd) {
@@ -16,12 +15,11 @@ public class SessionHelper extends HelperBase{
     }
 
     public void login(String username, String password) {
-        wd.get("http://localhost/addressbook/group.php");
 
-        type (By.name("user"), username);
-        type (By.name("pass"), password);
+        type(By.name("user"), username);
+        type(By.name("pass"), password);
 
 
-       click(By.xpath("//form[@id='LoginForm']/input[3]"));
+        click(By.xpath("//form[@id='LoginForm']/input[3]"));
     }
 }
