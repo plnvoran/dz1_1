@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.pft.addressbook.model.CantactData;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Denis on 19.03.2017.
  */
@@ -54,9 +56,11 @@ public class ContactHelper extends HelperBase {
     public void selectDeleteButton() {
 
         click(By.xpath(" //div[@id='content']/form[2]/div[2]/input"));
+
     }
 
     public void closeAlert() {
         wd.switchTo().alert().accept();
+        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     }
 }
