@@ -14,6 +14,7 @@ public class CntactCreationTests extends TestBase {
         app.getContactHelper().fillContactForm(new CantactData("First name", "Last name", "Moscow, Arbat 5", null, "12345@mail.ru"));
         app.getContactHelper().submitNewConract();
         app.getNavigationHelper().goToHomePage();
+
     }
 
 
