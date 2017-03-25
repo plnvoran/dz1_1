@@ -64,8 +64,12 @@ public class ContactHelper extends HelperBase {
 
     }
 
+
+
     public void findMsg ()
     {
-        find (By.cssSelector("div.msgbox"));
+        isElementPresent(By.cssSelector("div.msgbox"));
     }
+
+
 }
