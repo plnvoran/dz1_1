@@ -61,6 +61,11 @@ public class ContactHelper extends HelperBase {
 
     public void closeAlert() {
         wd.switchTo().alert().accept();
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+
+    }
+
+    public void findMsg ()
+    {
+        find (By.cssSelector("div.msgbox"));
     }
 }

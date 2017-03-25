@@ -14,6 +14,6 @@ public class DeleteContactTests extends TestBase{
         app.getContactHelper().selectContact();
         app.getContactHelper().selectDeleteButton();
         app.getContactHelper().closeAlert();
-
+        app.getContactHelper().findMsg();
     }
 }
