@@ -65,9 +65,7 @@ public class ContactHelper extends HelperBase {
     }
 
 
-
-    public void findMsg ()
-    {
+    public void findMsg() {
         isElementPresent(By.cssSelector("div.msgbox"));
     }
 
@@ -78,5 +76,21 @@ public class ContactHelper extends HelperBase {
             return;
         }
         click(By.linkText("home page"));
+    }
+
+    public void createContact(CantactData cantact) {
+        initAddNew();
+        fillContactForm(cantact);
+        submitNewConract();
+
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent (By.name("selected[]"));
+
+    }
+
+    public void findSelect()  {
+        isElementPresent (By.name("selected[]"));
     }
 }

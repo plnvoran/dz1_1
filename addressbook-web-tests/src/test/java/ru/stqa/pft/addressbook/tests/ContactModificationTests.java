@@ -11,6 +11,10 @@ public class ContactModificationTests extends TestBase {
      @Test
      public void testCntactModifacation() {
          app.getNavigationHelper().goToHomePage();
+         if (!app.getContactHelper().isThereAContact()) {
+             app.getContactHelper().createContact(new CantactData("First name", "Last name", "Moscow, Arbat 5", null, "12345@mail.ru"));
+         }
+         app.getContactHelper().findSelect();
          app.getContactHelper().selectContact();
          app.getContactHelper().selectEditButton();
          app.getContactHelper().fillContactForm(new CantactData("First name", "Last name", "Moscow, Arbat 5", "+ 74991234567", "12345@mail.ru"));
