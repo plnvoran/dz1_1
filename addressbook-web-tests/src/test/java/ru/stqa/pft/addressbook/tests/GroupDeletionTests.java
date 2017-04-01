@@ -26,6 +26,7 @@ public class GroupDeletionTests extends TestBase {
         before.remove(before.size() - 1);
         Assert.assertEquals(before, after);
 
+        
     }
 
 
