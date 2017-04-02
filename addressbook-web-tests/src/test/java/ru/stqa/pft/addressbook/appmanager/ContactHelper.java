@@ -2,9 +2,13 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.pft.addressbook.model.CantactData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -37,8 +41,9 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void selectContact() {
-        click(By.name("selected[]"));
+    public void selectContact (int index) {
+
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void selectEditButton() {
@@ -86,15 +91,36 @@ public class ContactHelper extends HelperBase {
     }
 
     public boolean isThereAContact() {
-        return isElementPresent (By.name("selected[]"));
+        return isElementPresent(By.name("selected[]"));
 
     }
 
-    public void findSelect()  {
-        isElementPresent (By.name("selected[]"));
+    public void findSelect() {
+        isElementPresent(By.name("selected[]"));
+    }
+    public void findMaintable() {
+        isElementPresent(By.xpath("//*[@id='maintable']"));
     }
 
     public int getGroupCouunt() {
-        return wd.findElements(By.name ("selected[]")).size();
+        return wd.findElements(By.name("selected[]")).size();
     }
+
+    public List<CantactData> getContactList() {
+        List<CantactData> contacts = new ArrayList<CantactData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+
+        for (WebElement element : elements) {
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            String lname = element.findElement(By.cssSelector("td:nth-of-type(2)")).getText();
+            String fname = element.findElement(By.cssSelector("td:nth-of-type(3)")).getText();
+            CantactData contact = new CantactData(id, fname,lname, null, null, null);
+            contacts.add(contact);
+
+
+        }
+
+        return contacts;
+    }
+
 }
