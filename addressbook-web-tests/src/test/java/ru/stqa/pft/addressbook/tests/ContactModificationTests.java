@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Denis on 19.03.2017.
  */
 public class ContactModificationTests extends TestBase {
-     @Test
+     @Test (enabled=false)
      public void testCntactModifacation() {
          app.getNavigationHelper().goToHomePage();
          if (!app.getContactHelper().isThereAContact()) {

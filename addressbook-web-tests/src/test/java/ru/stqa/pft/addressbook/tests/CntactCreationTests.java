@@ -12,7 +12,7 @@ public class CntactCreationTests extends TestBase {
 
 
 
-    @Test
+    @Test (enabled=false)
     public void testCntactCreation() {
         app.getNavigationHelper().goToHomePage();
         List<CantactData> before = app.getContactHelper().getContactList();
