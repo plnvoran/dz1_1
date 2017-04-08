@@ -133,8 +133,7 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String lname = element.findElement(By.cssSelector("td:nth-of-type(2)")).getText();
             String fname = element.findElement(By.cssSelector("td:nth-of-type(3)")).getText();
-            CantactData contact = new CantactData(id, fname, lname, null, null, null);
-            contacts.add(contact);
+            contacts.add(new CantactData().withId(id).withtFirstname(fname).withLastname(lname));
 
 
         }

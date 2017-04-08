@@ -15,7 +15,8 @@ public class CntactCreationTests extends TestBase {
     public void testCntactCreation() {
         app.goTo().homePage();
         List<CantactData> before = app.conact().list();
-        CantactData contact = new CantactData("First name", "Last name", "Moscow, Arbat 5", null, "12345@mail.ru");
+        CantactData contact = new CantactData().
+                withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru");
         app.conact().create(contact);
         List<CantactData> after = app.conact().list();
         int index=before.size() + 1;

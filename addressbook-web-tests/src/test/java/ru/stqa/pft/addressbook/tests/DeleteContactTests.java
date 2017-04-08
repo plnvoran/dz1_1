@@ -15,7 +15,8 @@ public class DeleteContactTests extends TestBase {
     public void ensurePreconditions (){
         app.goTo().homePage();
         if (app.conact().list().size()==0) {
-            app.conact().create(new CantactData("First name", "Last name", "Moscow, Arbat 5", null, "12345@mail.ru"));
+            app.conact().create(new CantactData().
+                    withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru"));
         }
         app.conact().findSelects();
     }

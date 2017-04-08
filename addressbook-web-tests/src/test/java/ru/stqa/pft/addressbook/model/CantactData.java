@@ -1,21 +1,46 @@
 package ru.stqa.pft.addressbook.model;
 
 public class CantactData {
-    private  int id;
-    private final String firstname;
-    private final String lastname;
-    private final String address;
-    private final String phone;
-    private final String email;
+    private  int id=0;
+    private  String firstname;
+    private  String lastname;
+    private  String address;
+    private  String phone;
+    private  String email;
 
-    public CantactData(int id, String firstname, String lastname, String address, String phone, String email) {
-        this.id=id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
+
+    public CantactData withId(int id) {
+        this.id = id;
+        return this;
     }
+
+    public CantactData withtFirstname(String firstname) {
+        this.firstname = firstname;
+        return this;
+    }
+
+    public CantactData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+    }
+
+    public CantactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public CantactData withPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public CantactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+
+
 
     @Override
     public String toString() {
@@ -43,15 +68,7 @@ public class CantactData {
         return result;
     }
 
-    public CantactData(String firstname, String lastname, String address, String phone, String email) {
-        this.id=0;
-        this.firstname = firstname;
-        this.lastname = lastname;
 
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-    }
 
     public String getFirstname() {
         return firstname;
