@@ -3,13 +3,10 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.pft.addressbook.model.CantactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Denis on 19.03.2017.
@@ -87,22 +84,22 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home page"));
     }
 
-    public void createContact(CantactData cantact) {
+    public void create(CantactData cantact) {
         initAddNew();
         fillContactForm(cantact);
         submitNewConract();
         returnToHomePage();
     }
 
-    public void modifyContact(int index, CantactData contact) {
+    public void modify(int index, CantactData contact) {
         selectContactToModify(index);
         fillContactForm(contact);
         selectUpdateButton();
         returnToHomePage();
-        findSelect();
+        findSelects();
     }
 
-    public void deleteContact(int index) {
+    public void delete(int index) {
         selectContactToDelete(index);
         selectDeleteButton();
         closeAlert();
@@ -116,7 +113,7 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void findSelect() {
+    public void findSelects() {
         isElementPresent(By.name("selected[]"));
     }
 
@@ -128,7 +125,7 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<CantactData> getContactList() {
+    public List<CantactData> list() {
         List<CantactData> contacts = new ArrayList<CantactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
 

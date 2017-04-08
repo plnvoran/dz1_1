@@ -3,9 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.appmanager.HelperBase;
 import ru.stqa.pft.addressbook.model.CantactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
@@ -16,22 +14,22 @@ import java.util.List;
 public class ContactModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions (){
-        app.getNavigationHelper().goToHomePage();
-        if (!app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new CantactData("First name", "Last name", "Moscow, Arbat 5", null, "12345@mail.ru"));
+        app.goTo().homePage();
+        if (app.conact().list().size()==0) {
+            app.conact().create(new CantactData("First name", "Last name", "Moscow, Arbat 5", null, "12345@mail.ru"));
         }
-        app.getContactHelper().findSelect();
+        app.conact().findSelects();
     }
     @Test
      public void testCntactModifacation() {
 
-         List<CantactData> before = app.getContactHelper().getContactList();
+         List<CantactData> before = app.conact().list();
          int index = before.size() - 1;
          CantactData contact=new CantactData(before.get(index).getId(),"First name", "Last name", "Moscow, Arbat 5", "+ 74991234567", "12345@mail.ru");
 
-        app.getContactHelper().modifyContact(index, contact);
+        app.conact().modify(index, contact);
 
-         List<CantactData> after = app.getContactHelper().getContactList();
+         List<CantactData> after = app.conact().list();
          Assert.assertEquals(after.size(), before.size());
          before.remove(index);
          before.add(contact);
