@@ -5,8 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.CantactData;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Denis on 19.03.2017.
@@ -15,7 +14,7 @@ public class ContactModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().homePage();
-        if (app.conact().list().size() == 0) {
+        if (app.conact().all().size() == 0) {
             app.conact().create(new CantactData().
                     withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru"));
         }
@@ -25,21 +24,20 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testCntactModifacation() {
 
-        List<CantactData> before = app.conact().list();
-        int index = before.size() - 1;
+       Set<CantactData> before = app.conact().all();
+        CantactData modifiedContact=before.iterator().next();
+
         CantactData contact = new CantactData()
-                .withId(before.get(index).getId()).withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withPhone("+ 74991234567").withEmail("12345@mail.ru");
+                .withId(modifiedContact.getId()).withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withPhone("+ 74991234567").withEmail("12345@mail.ru");
 
-        app.conact().modify(index, contact);
+        app.conact().modify(contact);
 
-        List<CantactData> after = app.conact().list();
+        Set<CantactData> after = app.conact().all();
         Assert.assertEquals(after.size(), before.size());
-        before.remove(index);
+        before.remove(modifiedContact);
         before.add(contact);
 
-        Comparator<? super CantactData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
+
         Assert.assertEquals(before, after);
     }
 

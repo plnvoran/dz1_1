@@ -5,8 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.CantactData;
 
-import java.util.ArrayList;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Denis on 19.03.2017.
@@ -38,20 +40,17 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void selectContactToDelete(int index) {
 
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void selectContactToDeleteById(int id) {
+
+        wd.findElement(By.cssSelector("input[value='"+id+"']")).click();
     }
+    public void selectContactToModifyById(int id) {
 
-    public void selectContactToModify(int index) {
+        wd.findElement(By.xpath("//a[@href='edit.php?id="+id+"']")).click();
+}
 
-        wd.findElements(By.xpath("//*[@id='maintable']/tbody//*[@alt='Edit']")).get(index).click();
-    }
-    public void selectEditButton() {
 
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
-
-    }
 
     public void selectUpdateButton() {
 
@@ -91,22 +90,22 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public void modify(int index, CantactData contact) {
-        selectContactToModify(index);
+    public void modify(CantactData contact) {
+        selectContactToModifyById(contact.getId());
         fillContactForm(contact);
         selectUpdateButton();
         returnToHomePage();
         findSelects();
     }
 
-    public void delete(int index) {
-        selectContactToDelete(index);
+
+    public void delete(CantactData contact) {
+        selectContactToDeleteById(contact.getId());
         selectDeleteButton();
         closeAlert();
         findMsg();
         findMaintable();
     }
-
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
@@ -125,8 +124,10 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<CantactData> list() {
-        List<CantactData> contacts = new ArrayList<CantactData>();
+
+
+    public Set<CantactData> all() {
+        Set<CantactData> contacts = new HashSet<CantactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
 
         for (WebElement element : elements) {
@@ -140,5 +141,6 @@ public class ContactHelper extends HelperBase {
 
         return contacts;
     }
+
 
 }

@@ -5,7 +5,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.CantactData;
 
-import java.util.List;
+
+import java.util.Set;
 
 /**
  * Created by Denis on 19.03.2017.
@@ -14,7 +15,7 @@ public class DeleteContactTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions (){
         app.goTo().homePage();
-        if (app.conact().list().size()==0) {
+        if (app.conact().all().size()==0) {
             app.conact().create(new CantactData().
                     withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru"));
         }
@@ -23,13 +24,14 @@ public class DeleteContactTests extends TestBase {
     @Test
     public void testContactDelete() {
 
-        List<CantactData> before = app.conact().list();
-        int index=before.size() - 1;
-        app.conact().delete(index);
-        List<CantactData> after = app.conact().list();
-        Assert.assertEquals(after.size(), index);
+        Set<CantactData> before = app.conact().all();
+        CantactData deletedContact=before.iterator().next();
 
-        before.remove(index);
+        app.conact().delete(deletedContact);
+        Set<CantactData> after = app.conact().all();
+        Assert.assertEquals(after.size(), before.size() - 1);
+
+        before.remove(deletedContact);
         Assert.assertEquals(before, after);
 
     }
