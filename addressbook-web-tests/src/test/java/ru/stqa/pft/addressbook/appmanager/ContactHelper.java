@@ -41,11 +41,15 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void selectContact (int index) {
+    public void selectContactToDelete(int index) {
 
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
+    public void selectContactToModify(int index) {
+
+        wd.findElements(By.xpath("//*[@id='maintable']/tbody//*[@alt='Edit']")).get(index).click();
+    }
     public void selectEditButton() {
 
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
@@ -87,8 +91,25 @@ public class ContactHelper extends HelperBase {
         initAddNew();
         fillContactForm(cantact);
         submitNewConract();
-
+        returnToHomePage();
     }
+
+    public void modifyContact(int index, CantactData contact) {
+        selectContactToModify(index);
+        fillContactForm(contact);
+        selectUpdateButton();
+        returnToHomePage();
+        findSelect();
+    }
+
+    public void deleteContact(int index) {
+        selectContactToDelete(index);
+        selectDeleteButton();
+        closeAlert();
+        findMsg();
+        findMaintable();
+    }
+
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
@@ -98,6 +119,7 @@ public class ContactHelper extends HelperBase {
     public void findSelect() {
         isElementPresent(By.name("selected[]"));
     }
+
     public void findMaintable() {
         isElementPresent(By.xpath("//*[@id='maintable']"));
     }
@@ -114,7 +136,7 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String lname = element.findElement(By.cssSelector("td:nth-of-type(2)")).getText();
             String fname = element.findElement(By.cssSelector("td:nth-of-type(3)")).getText();
-            CantactData contact = new CantactData(id, fname,lname, null, null, null);
+            CantactData contact = new CantactData(id, fname, lname, null, null, null);
             contacts.add(contact);
 
 

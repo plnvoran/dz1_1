@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.CantactData;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -11,25 +12,27 @@ import java.util.List;
  * Created by Denis on 19.03.2017.
  */
 public class DeleteContactTests extends TestBase {
-
-    @Test (enabled=false)
-    public void testContactDelete() {
+    @BeforeMethod
+    public void ensurePreconditions (){
         app.getNavigationHelper().goToHomePage();
         if (!app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new CantactData("First name", "Last name", "Moscow, Arbat 5", null, "12345@mail.ru"));
         }
-        List<CantactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().findSelect();
-        app.getContactHelper().selectContact(before.size() - 1);
-        app.getContactHelper().selectDeleteButton();
-        app.getContactHelper().closeAlert();
-        app.getContactHelper().findMsg();
-        app.getContactHelper().findMaintable();
-        List<CantactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size() - 1);
+    }
+    @Test
+    public void testContactDelete() {
 
-        before.remove(before.size() - 1);
+        List<CantactData> before = app.getContactHelper().getContactList();
+        int index=before.size() - 1;
+        app.getContactHelper().deleteContact(index);
+        List<CantactData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), index);
+
+        before.remove(index);
         Assert.assertEquals(before, after);
 
     }
+
+
 }

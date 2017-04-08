@@ -12,19 +12,15 @@ public class CntactCreationTests extends TestBase {
 
 
 
-    @Test (enabled=false)
+    @Test
     public void testCntactCreation() {
         app.getNavigationHelper().goToHomePage();
         List<CantactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().initAddNew();
         CantactData contact = new CantactData("First name", "Last name", "Moscow, Arbat 5", null, "12345@mail.ru");
-        app.getContactHelper().fillContactForm(contact);
-        app.getContactHelper().submitNewConract();
-        app.getContactHelper().returnToHomePage();
-
+        app.getContactHelper().createContact (contact);
         List<CantactData> after = app.getContactHelper().getContactList();
-
-        Assert.assertEquals(after.size(), before.size() + 1);
+        int index=before.size() + 1;
+        Assert.assertEquals(after.size(), index);
 
 
 
