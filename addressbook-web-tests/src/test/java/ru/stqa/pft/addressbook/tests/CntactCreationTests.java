@@ -19,9 +19,8 @@ public class CntactCreationTests extends TestBase {
         CantactData contact = new CantactData().
                 withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru");
         app.conact().create(contact);
+        assertThat(app.conact().count(), equalTo(before.size() + 1));
         Contacts after = app.conact().all();
-        assertThat(after.size(), equalTo(before.size() + 1));
-
         assertThat(after, equalTo
                 (before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 

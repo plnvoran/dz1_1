@@ -36,8 +36,8 @@ public class ContactModificationTests extends TestBase {
         CantactData contact = new CantactData()
                 .withId(modifiedContact.getId()).withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withPhone("+ 74991234567").withEmail("12345@mail.ru");
         app.conact().modify(contact);
+        assertThat(app.conact().count(), equalTo(before.size()));
         Contacts after = app.conact().all();
-        assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
     }
 
