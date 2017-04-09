@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.CantactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 
 import java.util.HashSet;
@@ -126,8 +127,8 @@ public class ContactHelper extends HelperBase {
 
 
 
-    public Set<CantactData> all() {
-        Set<CantactData> contacts = new HashSet<CantactData>();
+    public Contacts all() {
+       Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
 
         for (WebElement element : elements) {

@@ -1,11 +1,13 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
+
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.CantactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class CntactCreationTests extends TestBase {
 
@@ -13,16 +15,15 @@ public class CntactCreationTests extends TestBase {
     @Test
     public void testCntactCreation() {
         app.goTo().homePage();
-        Set<CantactData> before = app.conact().all();
+        Contacts before = app.conact().all();
         CantactData contact = new CantactData().
                 withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru");
         app.conact().create(contact);
-        Set<CantactData> after = app.conact().all();
-        Assert.assertEquals(after.size(), before.size() + 1);
+        Contacts after = app.conact().all();
+        assertThat(after.size(), equalTo(before.size() + 1));
 
-        contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
-        before.add(contact);
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo
+                (before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
 
     }
