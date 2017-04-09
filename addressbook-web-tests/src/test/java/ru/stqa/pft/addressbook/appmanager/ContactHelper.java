@@ -33,6 +33,12 @@ public class ContactHelper extends HelperBase {
         type(By.name("home"), cantactData.getHomePhone());
         type(By.name("email"), cantactData.getEmail());
 
+        type(By.name("email2"), cantactData.getEmail2());
+        type(By.name("email3"), cantactData.getEmail3());
+        type(By.name("mobile"), cantactData.getMobilePhone());
+        type(By.name("work"), cantactData.getWorkPhone());
+        type(By.name("phone2"), cantactData.getHome2Phone());
+
     }
 
     public void initAddNew() {
@@ -49,7 +55,10 @@ public class ContactHelper extends HelperBase {
         //wd.findElement(By.xpath("//a[@href='edit.php?id="+id+"']")).click();
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
 }
+    public void selectDetailsById(int id) {
 
+        wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
+    }
 
 
     public void selectUpdateButton() {
@@ -160,8 +169,6 @@ public class ContactHelper extends HelperBase {
     public CantactData infoFormEditForm(CantactData contact) {
         selectContactToModifyById(contact.getId());
 
-       // System.out.println(contact.getId());
-
         String firstname=wd.findElement(By.name("firstname")).getAttribute("value");
         String lastname=wd.findElement(By.name("lastname")).getAttribute("value");
         String home=wd.findElement(By.name("home")).getAttribute("value");
@@ -179,6 +186,13 @@ public class ContactHelper extends HelperBase {
                 .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withHome2Phone(home2)
                 .withAddress(adress)
                 .withEmail(email).withEmail2(email2).withEmail3(email3);
+
+    }
+
+    public CantactData infoFromDetailsForm(CantactData contact) {
+        selectDetailsById(contact.getId());
+        String allText  = wd.findElement(By.xpath("//*[@id='content']")).getText();
+        return new CantactData().withAllText(allText);
 
     }
 }

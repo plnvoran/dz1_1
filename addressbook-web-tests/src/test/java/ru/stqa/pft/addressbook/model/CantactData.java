@@ -18,7 +18,7 @@ public class CantactData {
 
     private  String allEmail;
 
-
+    private  String withAllText;
 
 
 
@@ -110,7 +110,10 @@ public class CantactData {
         return this;
     }
 
-
+    public CantactData withAllText(String withAllText) {
+        this.withAllText = withAllText;
+        return this;
+    }
 
     @Override
     public String toString() {
@@ -170,5 +173,9 @@ public class CantactData {
     }
     public String getEmail3() {
         return email3;
+    }
+
+    public String getAllText() {
+        return withAllText;
     }
 }
