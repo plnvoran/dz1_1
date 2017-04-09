@@ -13,16 +13,14 @@ public class CantactData {
 
     private  String allPhones;
     private  String email;
+    private  String email2;
+    private  String email3;
+
+    private  String allEmail;
 
 
-    public String getAllPhones() {
-        return allPhones;
-    }
 
-    public CantactData withAllPhones(String allPhones) {
-        this.allPhones = allPhones;
-        return this;
-    }
+
 
 
 
@@ -94,6 +92,24 @@ public class CantactData {
         return this;
     }
 
+    public CantactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+    public CantactData withAllEmail(String allEmail) {
+        this.allEmail = allEmail;
+        return this;
+    }
+
+    public CantactData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+    public CantactData withEmail3(String email3) {
+        this.email3= email3;
+        return this;
+    }
+
 
 
     @Override
@@ -140,5 +156,19 @@ public class CantactData {
 
     public String getHome2Phone() {
         return home2Phone;
+    }
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public String getAllEmail() {
+        return allEmail;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+    public String getEmail3() {
+        return email3;
     }
 }

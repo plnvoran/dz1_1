@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
+
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.CantactData;
 
@@ -21,6 +20,8 @@ public class ContactPhoneTests extends TestBase {
         CantactData contactInfoFormEditForm = app.conact().infoFormEditForm(contact);
 
         assertThat (contact.getAllPhones(), equalTo(mergePhones(contactInfoFormEditForm)));
+        assertThat (contact.getAddress(), equalTo(contactInfoFormEditForm.getAddress()));
+        assertThat (contact.getAllEmail(), equalTo(mergeEmails(contactInfoFormEditForm)));
 
     }
 
@@ -30,6 +31,13 @@ public class ContactPhoneTests extends TestBase {
                .map (ContactPhoneTests::cleaned)
                .collect(Collectors.joining("\n"));
 
+
+    }
+
+    private String mergeEmails(CantactData contact) {
+        return  Arrays.asList(contact.getEmail(),contact.getEmail2(), contact.getEmail3())
+                .stream().filter((s)->!s.equals(""))
+                .collect(Collectors.joining("\n"));
 
     }
 

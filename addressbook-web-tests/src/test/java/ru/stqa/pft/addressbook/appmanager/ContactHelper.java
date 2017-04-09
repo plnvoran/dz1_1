@@ -144,9 +144,11 @@ public class ContactHelper extends HelperBase {
             String allPhones = element.findElement(By.cssSelector("td:nth-of-type(6)")).getText();
 
             String address=element.findElement(By.cssSelector("td:nth-of-type(4)")).getText();
+            String allEmails=element.findElement(By.cssSelector("td:nth-of-type(5)")).getText();
+
 
             contactCache.add(new CantactData().withId(id).withtFirstname(fname).withLastname(lname)
-                          .withAllPhones(allPhones).withAddress(address));
+                          .withAllPhones(allPhones).withAddress(address).withAllEmail(allEmails));
 
 
         }
@@ -157,7 +159,9 @@ public class ContactHelper extends HelperBase {
 
     public CantactData infoFormEditForm(CantactData contact) {
         selectContactToModifyById(contact.getId());
-        System.out.println(contact.getId());
+
+       // System.out.println(contact.getId());
+
         String firstname=wd.findElement(By.name("firstname")).getAttribute("value");
         String lastname=wd.findElement(By.name("lastname")).getAttribute("value");
         String home=wd.findElement(By.name("home")).getAttribute("value");
@@ -166,11 +170,15 @@ public class ContactHelper extends HelperBase {
         String home2=wd.findElement(By.name("phone2")).getAttribute("value");
 
         String adress=wd.findElement(By.name("address")).getAttribute("value");
+        String email=wd.findElement(By.name("email")).getAttribute("value");
+        String email2=wd.findElement(By.name("email2")).getAttribute("value");
+        String email3=wd.findElement(By.name("email3")).getAttribute("value");
 
         wd.navigate().back();
-        return new CantactData().withId(contact.getId()).withtFirstname(firstname)
-                .withLastname(lastname).withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withHome2Phone(home2)
-                .withAddress(adress);
+        return new CantactData().withId(contact.getId()).withtFirstname(firstname).withLastname(lastname)
+                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withHome2Phone(home2)
+                .withAddress(adress)
+                .withEmail(email).withEmail2(email2).withEmail3(email3);
 
     }
 }
