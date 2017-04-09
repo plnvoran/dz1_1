@@ -5,19 +5,28 @@ public class CantactData {
     private  String firstname;
     private  String lastname;
     private  String address;
-    private  String phone;
+    private  String homePhone;
+    private  String mobilePhone;
+    private  String workPhone;
+
+    private  String home2Phone;
+
+    private  String allPhones;
     private  String email;
 
 
-    public CantactData withId(int id) {
-        this.id = id;
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public CantactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
         return this;
     }
 
-    public CantactData withtFirstname(String firstname) {
-        this.firstname = firstname;
-        return this;
-    }
+
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -39,6 +48,16 @@ public class CantactData {
         return result;
     }
 
+    public CantactData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public CantactData withtFirstname(String firstname) {
+        this.firstname = firstname;
+        return this;
+    }
+
     public CantactData withLastname(String lastname) {
         this.lastname = lastname;
 
@@ -50,16 +69,31 @@ public class CantactData {
         return this;
     }
 
-    public CantactData withPhone(String phone) {
-        this.phone = phone;
+    public CantactData withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
         return this;
     }
+
+
+    public CantactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+    public CantactData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+        return this;
+    }
+
+
 
     public CantactData withEmail(String email) {
         this.email = email;
         return this;
     }
-
+    public CantactData withHome2Phone(String home2Phone) {
+        this.home2Phone = home2Phone;
+        return this;
+    }
 
 
 
@@ -84,8 +118,8 @@ public class CantactData {
         return address;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getHomePhone() {
+        return homePhone;
     }
 
     public String getEmail() {
@@ -94,5 +128,18 @@ public class CantactData {
 
     public int getId() {
         return id;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
+    }
+
+    public String getMobilePhone() {
+
+        return mobilePhone;
+    }
+
+    public String getHome2Phone() {
+        return home2Phone;
     }
 }

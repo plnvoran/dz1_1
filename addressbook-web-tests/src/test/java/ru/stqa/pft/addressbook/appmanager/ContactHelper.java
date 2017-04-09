@@ -7,9 +7,7 @@ import ru.stqa.pft.addressbook.model.CantactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Denis on 19.03.2017.
@@ -32,7 +30,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("firstname"), cantactData.getFirstname());
         type(By.name("lastname"), cantactData.getLastname());
         type(By.name("address"), cantactData.getAddress());
-        type(By.name("home"), cantactData.getPhone());
+        type(By.name("home"), cantactData.getHomePhone());
         type(By.name("email"), cantactData.getEmail());
 
     }
@@ -142,7 +140,9 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String lname = element.findElement(By.cssSelector("td:nth-of-type(2)")).getText();
             String fname = element.findElement(By.cssSelector("td:nth-of-type(3)")).getText();
-            contactCache.add(new CantactData().withId(id).withtFirstname(fname).withLastname(lname));
+            String allPhones = element.findElement(By.cssSelector("td:nth-of-type(6)")).getText();
+            contactCache.add(new CantactData().withId(id).withtFirstname(fname).withLastname(lname)
+                          .withAllPhones(allPhones));
 
 
         }
@@ -151,4 +151,17 @@ public class ContactHelper extends HelperBase {
     }
 
 
+    public CantactData infoFormEditForm(CantactData contact) {
+        selectContactToModifyById(contact.getId());
+        String firstname=wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname=wd.findElement(By.name("lastname")).getAttribute("value");
+        String home=wd.findElement(By.name("home")).getAttribute("value");
+        String mobile=wd.findElement(By.name("mobile")).getAttribute("value");
+        String work=wd.findElement(By.name("work")).getAttribute("value");
+        String home2=wd.findElement(By.name("phone2")).getAttribute("value");
+        wd.navigate().back();
+        return new CantactData().withId(contact.getId()).withtFirstname(firstname)
+                .withLastname(lastname).withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withHome2Phone(home2);
+
+    }
 }
