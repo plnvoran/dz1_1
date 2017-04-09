@@ -88,6 +88,7 @@ public class ContactHelper extends HelperBase {
         initAddNew();
         fillContactForm(cantact);
         submitNewConract();
+        contactCache=null;
         returnToHomePage();
     }
 
@@ -95,6 +96,7 @@ public class ContactHelper extends HelperBase {
         selectContactToModifyById(contact.getId());
         fillContactForm(contact);
         selectUpdateButton();
+        contactCache=null;
         returnToHomePage();
         findSelects();
     }
@@ -106,6 +108,7 @@ public class ContactHelper extends HelperBase {
         closeAlert();
         findMsg();
         findMaintable();
+        contactCache=null;
     }
 
     public boolean isThereAContact() {
@@ -125,22 +128,26 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-
+    private Contacts contactCache=null;
 
     public Contacts all() {
-       Contacts contacts = new Contacts();
+      if (contactCache!=null) {
+          return new Contacts (contactCache);
+      }
+
+        contactCache  = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
 
         for (WebElement element : elements) {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String lname = element.findElement(By.cssSelector("td:nth-of-type(2)")).getText();
             String fname = element.findElement(By.cssSelector("td:nth-of-type(3)")).getText();
-            contacts.add(new CantactData().withId(id).withtFirstname(fname).withLastname(lname));
+            contactCache.add(new CantactData().withId(id).withtFirstname(fname).withLastname(lname));
 
 
         }
 
-        return contacts;
+        return new Contacts (contactCache);
     }
 
 
