@@ -85,7 +85,6 @@ public class CantactData {
     }
 
 
-
     public CantactData withEmail(String email) {
         this.email = email;
         return this;

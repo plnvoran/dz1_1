@@ -27,6 +27,8 @@ public class ContactModificationTests extends TestBase {
 
         Contacts before = app.conact().all();
         CantactData modifiedContact = before.iterator().next();
+        System.out.println(modifiedContact.getId());
+
         CantactData contact = new CantactData()
                 .withId(modifiedContact.getId()).withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withHomePhone("+ 74991234567").withEmail("12345@mail.ru");
         app.conact().modify(contact);
