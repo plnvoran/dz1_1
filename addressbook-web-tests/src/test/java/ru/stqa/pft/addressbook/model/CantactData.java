@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.io.File;
+
 public class CantactData {
     private  int id=0;
     private  String firstname;
@@ -20,6 +22,7 @@ public class CantactData {
 
     private  String withAllText;
 
+    private File photo;
 
 
 
@@ -113,7 +116,15 @@ public class CantactData {
     public CantactData withAllText(String withAllText) {
         this.withAllText = withAllText;
         return this;
+            }
+
+    public CantactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+
     }
+
+
 
     @Override
     public String toString() {
@@ -178,4 +189,9 @@ public class CantactData {
     public String getAllText() {
         return withAllText;
     }
+    public File getPhoto() {
+        return photo;
+    }
+
+
 }
