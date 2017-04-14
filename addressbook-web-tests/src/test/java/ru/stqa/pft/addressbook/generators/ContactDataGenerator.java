@@ -1,5 +1,8 @@
 package ru.stqa.pft.addressbook.generators;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import ru.stqa.pft.addressbook.model.CantactData;
 
 
@@ -15,18 +18,31 @@ import java.util.List;
  */
 public class ContactDataGenerator {
 
+    @Parameter(names = "-c", description = "Contact count")
+    public int count;
+    @Parameter(names = "-f", description = "Target file")
+    public String file;
 
     public static void main(String[] args) throws IOException {
-        int count = Integer.parseInt(args[0]);
-        File file = new File(args[1]);
+        ContactDataGenerator generator = new ContactDataGenerator();
+        JCommander jCommander = new JCommander(generator);
+        try {
+            jCommander.parse(args);
+        } catch (ParameterException ex) {
+            jCommander.usage();
+            return;
+        }
 
-       List<CantactData> contacts = generateGroups(count);
-       save(contacts, file);
-
+        generator.run();
     }
 
-    private static void save(List<CantactData> contacts, File file) throws IOException {
-       // System.out.println(new File(".").getAbsolutePath());
+    private void run() throws IOException {
+        List<CantactData> contacts = generateContacts(count);
+        save(contacts, new File(file));
+    }
+
+    private void save(List<CantactData> contacts, File file) throws IOException {
+        // System.out.println(new File(".").getAbsolutePath());
         Writer writer = new FileWriter(file);
         for (CantactData contact : contacts) {
             writer.write(String.format("%s;%s;%s;%s;%s\n",
@@ -37,7 +53,7 @@ public class ContactDataGenerator {
         writer.close();
     }
 
-    private static List<CantactData> generateGroups(int count) {
+    private static List<CantactData> generateContacts(int count) {
         List<CantactData> contacts = new ArrayList<CantactData>();
         for (int i = 0; i < count; i++) {
             contacts.add(new CantactData()
@@ -46,10 +62,7 @@ public class ContactDataGenerator {
                     .withAddress(String.format("Address %s", i))
                     .withEmail(String.format("Email%s@test.ru", i))
                     .withHomePhone(String.format("495-777-55-0%s", i))
-            )
-
-            ;
-
+            );
 
         }
         return contacts;
