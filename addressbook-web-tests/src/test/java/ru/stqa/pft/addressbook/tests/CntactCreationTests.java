@@ -5,10 +5,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.CantactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,12 +17,18 @@ import static org.hamcrest.MatcherAssert.*;
 
 public class CntactCreationTests extends TestBase {
     @DataProvider
-    public Iterator<Object[]> validContacts() {
+    public Iterator<Object[]> validContacts() throws IOException {
         List<Object[]> list = new ArrayList<Object[]>();
-       // File photo = new File("src/test/resources/ring.gif");
-        list.add(new Object[]{new CantactData().withtFirstname("First name1").withLastname("Last name1").withAddress("Moscow, Arbat 1").withHomePhone("111 222 333 1").withEmail("12345@mail1.ru")});
-        list.add(new Object[]{new CantactData().withtFirstname("First name2").withLastname("Last name2").withAddress("Moscow, Arbat 2").withHomePhone("111 222 333 2").withEmail("12345@mail2.ru")});
-        list.add(new Object[]{new CantactData().withtFirstname("First name3").withLastname("Last name3").withAddress("Moscow, Arbat 3").withHomePhone("111 222 333 3").withEmail("12345@mail3.ru")});
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")));
+        String line = reader.readLine();
+        while (line != null) {
+            String[] split = line.split(";");
+            list.add(new Object[]{new CantactData().withtFirstname(split[0]).withLastname(split[1]).withAddress(split[2])
+                    .withEmail(split[3]).withHomePhone(split[4])
+                    });
+            line = reader.readLine();
+        }
+
         return list.iterator();
     }
 
