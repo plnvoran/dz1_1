@@ -234,6 +234,7 @@ public class CantactData {
     public String getAllText() {
         return withAllText;
     }
+
     public File getPhoto() {
         return new File(photo);
     }

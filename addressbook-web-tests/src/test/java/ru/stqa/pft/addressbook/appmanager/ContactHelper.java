@@ -186,6 +186,7 @@ public class ContactHelper extends HelperBase {
                 .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withHome2Phone(home2)
                 .withAddress(adress)
                 .withEmail(email).withEmail2(email2).withEmail3(email3);
+                //.withPhoto();
 
     }
 

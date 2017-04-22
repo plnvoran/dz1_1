@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.CantactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -30,7 +32,9 @@ public class ContactModificationTests extends TestBase {
 
 
         CantactData contact = new CantactData()
-                .withId(modifiedContact.getId()).withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withHomePhone("+ 74991234567").withEmail("12345@mail.ru");
+                .withId(modifiedContact.getId()).withtFirstname("First name").withLastname("Last name")
+                .withAddress("Moscow, Arbat 5").withHomePhone("+ 74991234567").withEmail("12345@mail.ru")
+                .withPhoto(new File("src/test/resources/ring.gif"));
         app.conact().modify(contact);
         assertThat(app.conact().count(), equalTo(before.size()));
         Contacts after = app.conact().all();
