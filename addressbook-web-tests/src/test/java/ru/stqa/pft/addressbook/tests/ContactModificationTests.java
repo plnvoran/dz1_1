@@ -16,10 +16,15 @@ import static org.hamcrest.MatcherAssert.*;
 public class ContactModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().homePage();
-        if (app.conact().all().size() == 0) {
+
+        if (app.db().contacts().size()==0) {
+            app.goTo().homePage();
             app.conact().create(new CantactData().
-                    withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru"));
+                    withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru")
+                    .withPhoto(new File("src/test/resources/ring.gif"))
+            );
+
+
         }
         app.conact().findSelects();
     }
@@ -27,7 +32,7 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testCntactModifacation() {
 
-        Contacts before = app.conact().all();
+        Contacts before =  app.db().contacts();
         CantactData modifiedContact = before.iterator().next();
 
 
@@ -35,9 +40,10 @@ public class ContactModificationTests extends TestBase {
                 .withId(modifiedContact.getId()).withtFirstname("First name").withLastname("Last name")
                 .withAddress("Moscow, Arbat 5").withHomePhone("+ 74991234567").withEmail("12345@mail.ru")
                 .withPhoto(new File("src/test/resources/ring.gif"));
+        app.goTo().homePage();
         app.conact().modify(contact);
         assertThat(app.conact().count(), equalTo(before.size()));
-        Contacts after = app.conact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
     }
 
