@@ -83,7 +83,15 @@ public class ContactDataGenerator {
                     .withAddress(String.format("Address %s", i))
                     .withEmail(String.format("Email%s@test.ru", i))
                     .withHomePhone(String.format("495-777-55-0%s", i))
+                    .withMobilePhone(String.format("495-777-55-0%s", i))
+                    .withWorkPhone(String.format("495-777-55-0%s", i))
+                    .withEmail2(String.format("Email%s@test.ru", i))
+                    .withEmail3(String.format("Email%s@test.ru", i))
+                    .withHome2Phone(String.format("495-777-55-0%s", i))
+
+
                     .withPhoto(new File("src/test/resources/ring.gif"))
+
             );
 
         }

@@ -19,9 +19,16 @@ public class ContactModificationTests extends TestBase {
 
         if (app.db().contacts().size()==0) {
             app.goTo().homePage();
-            app.conact().create(new CantactData().
-                    withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru")
+            app.conact().create(new CantactData()
+                    .withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru")
                     .withPhoto(new File("src/test/resources/ring.gif"))
+                    .withHomePhone("1234567890")
+                    .withMobilePhone("111222333")
+                    .withWorkPhone("444555777")
+                    .withHome2Phone("888777444")
+                    .withEmail2("2@mail.ru")
+                    .withEmail3("3@mail.ru")
+
             );
 
 
@@ -37,9 +44,19 @@ public class ContactModificationTests extends TestBase {
 
 
         CantactData contact = new CantactData()
-                .withId(modifiedContact.getId()).withtFirstname("First name").withLastname("Last name")
-                .withAddress("Moscow, Arbat 5").withHomePhone("+ 74991234567").withEmail("12345@mail.ru")
-                .withPhoto(new File("src/test/resources/ring.gif"));
+                .withId(modifiedContact.getId())
+                .withtFirstname("First name").withLastname("Last name").withAddress("Moscow, Arbat 5").withEmail("12345@mail.ru")
+                .withPhoto(new File("src/test/resources/ring.gif"))
+                .withHomePhone("1234567890")
+                .withMobilePhone("111222333")
+                .withWorkPhone("444555777")
+                .withHome2Phone("888777444")
+                .withEmail2("2@mail.ru")
+                .withEmail3("3@mail.ru")
+                ;
+
+
+
         app.goTo().homePage();
         app.conact().modify(contact);
         assertThat(app.conact().count(), equalTo(before.size()));

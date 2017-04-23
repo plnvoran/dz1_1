@@ -39,10 +39,10 @@ public class CntactCreationTests extends TestBase {
     @Test(dataProvider = "validContacts")
     public void testCntactCreation(CantactData contact) {
         app.goTo().homePage();
-        Contacts before = app.conact().all();
+        Contacts before =  app.db().contacts();
         app.conact().create(contact);
         assertThat(app.conact().count(), equalTo(before.size() + 1));
-        Contacts after = app.conact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo
                 (before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
