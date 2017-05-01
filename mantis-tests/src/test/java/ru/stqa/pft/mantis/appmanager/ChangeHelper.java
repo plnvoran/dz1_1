@@ -65,35 +65,32 @@ public class ChangeHelper extends HelperBase{
     }
 
     public void finish() throws SQLException {
-     //   wd.get(app.getProperty("web.baseUrl") + "manage_user_edit_page.php?user_id="+findUser().getId());
-        wd.get(app.getProperty("web.baseUrl") + "manage_user_edit_page.php?user_id=4");
+     //  wd.get(app.getProperty("web.baseUrl") + "manage_user_edit_page.php?user_id="+findUser().getId());
+       wd.get(app.getProperty("web.baseUrl") + "manage_user_edit_page.php?user_id=4");
       click(By.cssSelector("input[value='Reset Password']"));
 
     }
-    public void startMailSrver()
-    {
-        app.mail().start();
-    }
+
 
     public void changePass() throws IOException, MessagingException, SQLException {
 
         long now=System.currentTimeMillis();
 
 
-        List<MailMessage> mailMessages = app.mail().waitForMail (2, 10000);
+        List<MailMessage> mailMessages = app.mail().waitForMail (1, 10000);
 
         String confirmationLink=findConfirmationLink (mailMessages);
-
-        wd.get(app.getProperty(confirmationLink));
+        wd.get(confirmationLink);
+        type(By.name("password"), app.getProperty("web.adminPassword"));
+        type(By.name("password_confirm"), app.getProperty("web.adminPassword"));
+        click(By.cssSelector("input[value='Update User']"));
 
 
 
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages) throws SQLException {
-        String e = findUser().getEmail();
-        MailMessage mailMessage= mailMessages.stream().filter((m) -> m.to.equals("tuser1@localhost.localdomain")).findFirst().get();
-
+        MailMessage mailMessage= mailMessages.get( 0 );
         VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
         return regex.getText(mailMessage.text);
 
