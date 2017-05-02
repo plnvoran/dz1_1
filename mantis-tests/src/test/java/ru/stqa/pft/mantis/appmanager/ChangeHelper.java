@@ -10,19 +10,14 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
-import static org.testng.Assert.assertTrue;
+public class ChangeHelper extends HelperBase {
+    public UserData user = new UserData().withId('0').withLogin("");
 
-/**
- * Created by Denis on 01.05.2017.
- */
-public class ChangeHelper extends HelperBase{
-
-    public ChangeHelper (ApplicationManager app) {
+    public ChangeHelper(ApplicationManager app) {
         super(app);
     }
 
-    public void goToManagePage()
-    {
+    public void goToManagePage() {
         wd.get(app.getProperty("web.baseUrl") + "/login_page.php");
         type(By.name("username"), app.getProperty("web.adminLogin"));
         type(By.name("password"), app.getProperty("web.adminPassword"));
@@ -31,26 +26,20 @@ public class ChangeHelper extends HelperBase{
 
     }
 
-        public UserData findUser() throws SQLException {
-            UserData u = new UserData().withId('0').withLogin("");
-
+    public UserData findUserForChange() throws SQLException {
 
         Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bugtracker?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
                     + "&user=root&password=");
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select id, username, email from mantis_user_table where username!='administrator' LIMIT 1 ");
-
+            ResultSet rs = st.executeQuery("select id, username from mantis_user_table where username!='administrator' LIMIT 1 ");
 
             while (rs.next()) {
 
-               u = new UserData().withId(rs.getInt("id"))
-                       .withLogin(rs.getString("username"))
-                       .withEmail(rs.getString("email"));
+                user = new UserData().withId(rs.getInt("id"))
+                        .withLogin(rs.getString("username"));
             }
-
-
 
             rs.close();
             st.close();
@@ -61,36 +50,30 @@ public class ChangeHelper extends HelperBase{
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
-            return u;
+
+        return user;
     }
 
-    public void finish() throws SQLException {
-     //  wd.get(app.getProperty("web.baseUrl") + "manage_user_edit_page.php?user_id="+findUser().getId());
-       wd.get(app.getProperty("web.baseUrl") + "manage_user_edit_page.php?user_id=4");
-      click(By.cssSelector("input[value='Reset Password']"));
+    public void resetPassword() throws SQLException {
+        wd.get(app.getProperty("web.baseUrl") + "manage_user_edit_page.php?user_id=" + user.getId());
+        click(By.cssSelector("input[value='Reset Password']"));
 
     }
 
 
-    public void changePass() throws IOException, MessagingException, SQLException {
-
-        long now=System.currentTimeMillis();
-
-
-        List<MailMessage> mailMessages = app.mail().waitForMail (1, 10000);
-
-        String confirmationLink=findConfirmationLink (mailMessages);
+    public void changePassword(String newPassword) throws IOException, MessagingException, SQLException {
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
+        String confirmationLink = findConfirmationLink(mailMessages);
         wd.get(confirmationLink);
-        type(By.name("password"), app.getProperty("web.adminPassword"));
-        type(By.name("password_confirm"), app.getProperty("web.adminPassword"));
+        type(By.name("password"), newPassword);
+        type(By.name("password_confirm"), newPassword);
         click(By.cssSelector("input[value='Update User']"));
-
 
 
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages) throws SQLException {
-        MailMessage mailMessage= mailMessages.get( 0 );
+        MailMessage mailMessage = mailMessages.get(0);
         VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
         return regex.getText(mailMessage.text);
 

@@ -1,6 +1,5 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import org.apache.commons.exec.ExecuteWatchdog;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -98,10 +97,10 @@ public class ApplicationManager {
         }
         return wd;
     }
-    public MailHelper mail()
-    {
-        if (mailHelper==null)
-            mailHelper=new MailHelper(this);
+
+    public MailHelper mail() {
+        if (mailHelper == null)
+            mailHelper = new MailHelper(this);
         return mailHelper;
     }
 }

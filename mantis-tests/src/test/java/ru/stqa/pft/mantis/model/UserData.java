@@ -8,16 +8,7 @@ public class UserData {
 
     public  int id=0;
     public  String login;
-    public String email;
 
-    public UserData withEmail(String email) {
-        this.email= email;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
 
     public UserData withId(int id) {
         this.id = id;
