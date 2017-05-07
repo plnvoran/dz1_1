@@ -32,7 +32,6 @@ public class TestBase {
         app.init();
         app.ftp().upload(new File("src/test/resources/config_inc.php"),"config_inc.php", "config_inc.php.bak" );
         isIssueOpen(Integer.valueOf(app.getProperty("web.bugIsNotFiuxedId").toString()));
-        skipIfNotFixed(Integer.valueOf(app.getProperty("web.bugIsNotFiuxedId").toString()));
 
     }
     public  boolean isIssueOpen(int issueId) throws MalformedURLException, ServiceException, RemoteException {

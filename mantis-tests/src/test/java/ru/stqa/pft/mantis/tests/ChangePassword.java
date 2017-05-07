@@ -7,7 +7,10 @@ import ru.stqa.pft.mantis.appmanager.HttpSession;
 import ru.stqa.pft.mantis.model.UserData;
 
 import javax.mail.MessagingException;
+import javax.xml.rpc.ServiceException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import static org.testng.Assert.assertTrue;
@@ -16,8 +19,9 @@ import static org.testng.Assert.assertTrue;
 public class ChangePassword extends TestBase {
 
     @BeforeMethod
-    public void startMailSrver()  {
+    public void startMailSrver() throws RemoteException, ServiceException, MalformedURLException {
         app.mail().start();
+        skipIfNotFixed(Integer.valueOf(app.getProperty("web.bugIsNotFiuxedId").toString()));
 
     }
 
