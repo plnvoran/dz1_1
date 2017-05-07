@@ -1,16 +1,28 @@
 package ru.stqa.pft.mantis.appmanager;
 
+import biz.futureware.mantis.rpc.soap.client.IssueData;
+import biz.futureware.mantis.rpc.soap.client.MantisConnectLocator;
+import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
+import biz.futureware.mantis.rpc.soap.client.ObjectRef;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.testng.SkipException;
+import ru.stqa.pft.mantis.model.Project;
 
+import javax.xml.rpc.ServiceException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,6 +37,7 @@ public class ApplicationManager {
     private ChangeHelper changeHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
+    private SoapHelper soapHelper;
 
 
     public ApplicationManager(String browser) {
@@ -103,4 +116,13 @@ public class ApplicationManager {
             mailHelper = new MailHelper(this);
         return mailHelper;
     }
+
+    public SoapHelper soap() {
+        if (soapHelper == null)
+            soapHelper = new SoapHelper(this);
+        return soapHelper;
+    }
+
+
+
 }

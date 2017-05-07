@@ -23,7 +23,8 @@ public class RegistrationTests extends TestBase {
        app.mail().start();
    }
 
-    @Test
+
+    @Test(enabled = false)
     public void testRegistration() throws IOException, MessagingException {
       long now=System.currentTimeMillis();
 
