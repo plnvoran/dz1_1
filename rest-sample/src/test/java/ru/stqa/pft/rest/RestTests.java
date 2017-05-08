@@ -10,9 +10,12 @@ import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.Set;
 
 import static org.testng.Assert.*;
@@ -20,7 +23,14 @@ import static org.testng.Assert.*;
 /**
  * Created by Denis on 08.05.2017.
  */
-public class RestTests {
+public class RestTests extends TestBase {
+    @BeforeMethod
+    public void startMailSrver() throws IOException {
+        skipIfNotFixed(Integer.valueOf(app.getProperty("web.bugIsNotFiuxedId").toString()));
+
+    }
+
+
     @Test
     public void testCreateIssue() throws IOException {
         Set<Issue> oldIssues = getIssues();
