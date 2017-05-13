@@ -11,7 +11,7 @@ public class PointTests {
 
         Point p1 = new Point(2, -5);
         Point p2 = new Point(-4, 3);
-        Assert.assertEquals(p1.distance(p2), 10.0);
+        Assert.assertEquals(p1.distance(p2), 10.1);
 
 
     }
@@ -27,6 +27,8 @@ public class PointTests {
 
 
     }
+
+
 
     @Test
     /* Тест 3: точки имеют равные координаты */
